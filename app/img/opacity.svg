@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+  <linearGradient id="gradient" x1="0" x2="1" y1="0" y2="0">
+    <stop offset="0%" stop-color="rgb(160,160,160)"/>
+    <stop offset="100%" stop-color="rgb(250,250,250)"/>
+  </linearGradient>
+
+  <rect fill="url(#gradient)" x="0" y="0" rx="3" ry="3" width="12" height="10"></rect>
+</svg>

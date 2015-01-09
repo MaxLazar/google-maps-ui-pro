@@ -1,0 +1,307 @@
+<html>
+	<title>Menu</title>
+		<link rel="stylesheet" href="css/screen.css?222" />
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<body>
+
+
+
+<div style="padding-top:10px;height:50px; font-size:15px;width:100%; text-align:center;" class="wrap push"><div style="margin:0 auto;"><a href="#menu" class="menu-link">&#9776;</a> <span class='title_top'>MX Google Map JS</span></div>	</div>
+
+		<div class="mx_map_container push" style="width:100%; height:100%;"></div>
+
+		<script id="entry-template" type="text/x-handlebars-template">
+			 <div class="mx_menu">
+				<div class="mx_tabs mx_js-tabs">
+					<label class="mx_tab">
+						<input type="radio" name="{{prefix}}main-tabs" value="search" class="tab__radio js-tab__radio" checked /><i class="icon icon__search"></i>{{search}}</label>
+					<label class="mx_tab">
+						<input type="radio" name="{{prefix}}main-tabs" value="marker" class="tab__radio js-tab__radio" /><i class="icon icon__marker"></i>{{marker}}</label>
+					<label class="mx_tab">
+						<input type="radio" name="{{prefix}}main-tabs" value="line" class="tab__radio js-tab__radio" /><i class="icon icon__line"></i>{{line}}</label>
+					<label class="mx_tab">
+						<input type="radio" name="{{prefix}}main-tabs" value="polygon" class="tab__radio js-tab__radio" /><i class="icon icon__polygon"></i>{{polygon}}</label>
+					<label class="mx_tab">
+						<input type="radio" name="{{prefix}}main-tabs" value="list" class="tab__radio js-tab__radio" /><i class="icon icon__list"></i>&#9776;</label>
+						<label class="mx_tab">
+						<input type="radio" name="{{prefix}}main-tabs" value="hand" class="tab__radio js-tab__radio" /><i class="icon icon__list"></i>&#9992;</label>
+				</div>
+				<div class="mx_tabs-content">
+					<div class="mx_tab-content js-tab-content js-tab-content__search is-active">
+						<input type="text" placeholder="{{search}}" class="input input_type_search" id="{{prefix}}_search_field" />
+					</div>
+					<div class="mx_tab-content js-tab-content js-tab-content__marker">
+						<i class="icon icon__info"></i>{{marker_show}}
+						<button class="cancel js-cancel"><i class="icon icon__cancel"></i>{{cancel}}</button>
+					</div>
+
+					<div class="mx_tab-content tab-content_subtabs_true js-tab-content js-tab-content__marker-expanded">
+						<div class="subtab-content js-subtab-content js-subtab-content__text">
+							<input type="text" placeholder="{{title_placeholder}}" class="input input_type_title" id="{{prefix}}_mTitle" />
+							<textarea placeholder="No description" class="input input_type_description" style="width:100%; height:150px" id="{{prefix}}_mDesc"></textarea>
+						</div>
+						 <!-- <div class="subtab-content js-subtab-content js-subtab-content__style">
+							<div class="color-picker">
+								<div class="color-picker__row">
+								{{#color_set1}}
+										<label style="background-color: {{.}}" class="color"> <input type="radio" name="{{prefix}}marker-color" value="{{.}}" class="color__radio js-color__radio" /> </label>
+								{{/color_set1}}
+								</div>
+								<div class="color-picker__row">
+								{{#color_set2}}
+										<label style="background-color: {{.}}" class="color"> <input type="radio" name="{{prefix}}marker-color" value="{{.}}" class="color__radio js-color__radio" /> </label>
+								{{/color_set2}}
+								</div>
+							</div>
+							<input type="text" value="#478ac3" style="background-color: #478ac3;" class="input input_type_color is-inverted js-color-input__{{prefix}}marker-color" id="{{prefix}}_mColor" />
+						</div>		 -->
+						<div class="subtab-content js-subtab-content js-subtab-content__symbol">
+							<div class="markers icons_list">
+								{{#markers_icons}}
+									<label class="marker">
+											<img src="{{icons_path}}{{.}}" class="marker__icon"/>
+									</label>
+								{{/markers_icons}}
+								<input type="hidden" value="default" id="{{prefix}}_mIcon" />
+								<!--	<label class="marker {{.}}">
+											<input type="radio" name="{{prefix}}marker-icon" value="{{.}}" class="marker__radio" id="{{prefix}}_mIcon" />
+										</label> -->
+							</div>
+						</div>
+						<div class="subtab-content js-subtab-content js-subtab-content__latlon">
+							<div class="mx_row">
+								<div class="column col1of2">
+									<input type="text" placeholder="{{latitude}}" class="input input_type_latitude" id="{{prefix}}_mLat"/>
+								</div>
+								<div class="column col1of2">
+									<input type="text" placeholder="{{longitude}}" class="input input_type_longitude" id="{{prefix}}_mLng"/>
+								</div>
+							</div>
+						</div>
+						<div class="subtab-content js-subtab-content js-subtab-content__delete">
+							<h3 class="title">{{delete_message}}</h3>
+							<button class="button button_color_dangerous delete_confirm">{{delete_confirm}}</button>
+						</div>
+
+						<div class="subtabs" style="width:480px;">
+							<label class="subtab is-active">
+								<input type="radio" name="{{prefix}}marker-expanded" value="0" class="subtab__radio js-subtab__radio" /><i class="icon"></i>{{text}}</label>
+							<!--	<label class="subtab">
+								<input type="radio" name="{{prefix}}marker-expanded" value="1" class="subtab__radio js-subtab__radio" /><i class="color-probe js-color-probe__{{prefix}}marker-color"></i>{{style}}</label>-->
+						<label class="subtab">
+								<input type="radio" name="{{prefix}}marker-expanded" value="1" class="subtab__radio js-subtab__radio" /><i class="icon"></i>{{marker_icon}}</label>
+							<label class="subtab">
+								<input type="radio" name="{{prefix}}marker-expanded" value="2" class="subtab__radio js-subtab__radio" /><i class="icon"></i>{{latlong}}</label>
+							<label class="subtab">
+								<input type="radio" name="{{prefix}}marker-expanded" value="3" class="subtab__radio js-subtab__radio" /><i class="icon icon__delete"></i>
+							</label>
+						<!--	<label class="subtab">
+								<input type="radio" name="{{prefix}}marker-expanded" value="close-tab" class="subtab__radio js-subtab__radio" /><i class="icon icon__ok"></i>
+							</label> -->
+						</div>
+
+
+					</div>
+					<div class="mx_tab-content js-tab-content js-tab-content__line"><i class="icon icon__info"></i>{{line_show}}
+						<button class="cancel js-cancel"><i class="icon icon__cancel"></i>{{cancel}}</button>
+					</div>
+					<div class="mx_tab-content tab-content_subtabs_true js-tab-content js-tab-content__line-expanded">
+						<div class="subtab-content js-subtab-content js-subtab-content__text">
+							<input type="text" placeholder="{{title_placeholder}}" class="input input_type_title" id="{{prefix}}_lTitle" />
+							<textarea placeholder="{{desc_placeholder}}" class="input input_type_description" id="{{prefix}}_lDesc"></textarea>
+						</div>
+						<div class="subtab-content js-subtab-content js-subtab-content__style">
+							<div class="mx_row">
+								<div class="column col1of2">
+									<div>
+										<input type="text" data-min='0' data-max='100' placeholder="0" value="60" class="input js-input input_type_opacity" id="{{prefix}}_lStOpacity" />
+									</div>
+								</div>
+								<div class="column col1of2">
+									<div class="incremental-input">
+										<input type="text" data-min='1' data-max='10' value="3" placeholder="0" class="input js-input input_type_stroke" id="{{prefix}}_lStWeight" />
+										<div class="incremental-input_button incremental-input_button_plus js-plus"></div>
+										<div class="incremental-input_button incremental-input_button_minus js-minus"></div>
+									</div>
+								</div>
+							</div>
+							<div class="color-picker">
+								<div class="color-picker__row">
+								{{#color_set1}}
+										<label style="background-color: {{.}}" class="color"> <input type="radio" name="{{prefix}}line-strokeColor" value="{{.}}" class="color__radio js-color__radio" /> </label>
+								{{/color_set1}}
+								</div>
+								<div class="color-picker__row">
+								{{#color_set2}}
+										<label style="background-color: {{.}}" class="color"> <input type="radio" name="{{prefix}}line-strokeColor" value="{{.}}" class="color__radio js-color__radio" /> </label>
+								{{/color_set2}}
+								</div>
+							</div>
+							<input type="text" value="#478ac3" style="background-color: #478ac3;" class="input input_type_color is-inverted js-color-input__{{prefix}}line-strokeColor"  id="{{prefix}}_lStColor"/>
+						</div>
+						<div class="subtab-content js-subtab-content js-subtab-content__delete">
+							<h3 class="title">{{delete_message}}</h3>
+							<button class="button button_color_dangerous delete_confirm">{{delete_confirm}}</button>
+						</div>
+						<div class="subtabs">
+							<label class="subtab is-active">
+								<input type="radio" name="{{prefix}}line-expanded" value="0" class="subtab__radio js-subtab__radio" /><i class="icon icon__search"></i>{{text}}</label>
+							<label class="subtab">
+								<input type="radio" name="{{prefix}}line-expanded" value="1" class="subtab__radio js-subtab__radio" /><i class="color-probe js-color-probe__{{prefix}}line-strokeColor"></i>{{stroke}}</label>
+							<label class="subtab">
+								<input type="radio" name="{{prefix}}line-expanded" value="2" class="subtab__radio js-subtab__radio" /><i class="icon icon__delete"></i>
+							</label>
+						<!--	<label class="subtab">
+								<input type="radio" name="{{prefix}}line-expanded" value="close-tab" class="subtab__radio js-subtab__radio" /><i class="icon icon__ok"></i>
+							</label> -->
+						</div>
+					</div>
+					<div class="mx_tab-content js-tab-content js-tab-content__polygon"><i class="icon icon__info"></i>{{polygon_show}}
+						<button class="cancel js-cancel"><i class="icon icon__cancel"></i>{{cancel}}</button>
+					</div>
+					<div class="mx_tab-content tab-content_subtabs_true js-tab-content js-tab-content__polygon-expanded">
+						<div class="subtab-content js-subtab-content js-subtab-content__text">
+							<input type="text" placeholder="{{title_placeholder}}" class="input input_type_title" id="{{prefix}}_pStTitle"/>
+							<textarea placeholder="{{desc_placeholder}}" class="input input_type_description" id="{{prefix}}_pStDesc"></textarea>
+						</div>
+
+						<div class="subtab-content js-subtab-content js-subtab-content__stroke">
+							<div class="mx_row">
+								<div class="column col1of2">
+									<div class="">
+										<input type="text" data-min='0' data-max='100' placeholder="0" value="80" class="input js-input input_type_opacity" id="{{prefix}}_pStOpacity"/>
+									</div>
+								</div>
+								<div class="column col1of2">
+									<div class="incremental-input">
+										<input type="text" data-min='1' data-max='10' placeholder="0" value="2" class="input js-input input_type_stroke"  id="{{prefix}}_pStWeight"/>
+										<div class="incremental-input_button incremental-input_button_plus js-plus"></div>
+										<div class="incremental-input_button incremental-input_button_minus js-minus"></div>
+									</div>
+								</div>
+							</div>
+							<div class="color-picker">
+								<div class="color-picker__row">
+								{{#color_set1}}
+										<label style="background-color: {{.}}" class="color"> <input type="radio" name="{{prefix}}polygon-strokeColor" value="{{.}}" class="color__radio js-color__radio" /> </label>
+								{{/color_set1}}
+								</div>
+								<div class="color-picker__row">
+								{{#color_set2}}
+										<label style="background-color: {{.}}" class="color"> <input type="radio" name="{{prefix}}polygon-strokeColor" value="{{.}}" class="color__radio js-color__radio" /> </label>
+								{{/color_set2}}
+								</div>
+							</div>
+							<input type="text" value="#478ac3" style="background-color: #478ac3;" class="input input_type_color is-inverted js-color-input__{{prefix}}polygon-strokeColor" id="{{prefix}}_pStColor"/>
+						</div>
+						<div class="subtab-content js-subtab-content js-subtab-content__fill">
+							<div class="mx_row">
+								<div class="column col1of2">
+									<div class="incremental-input">
+										<input type="text" data-min='0' data-max='100' placeholder="0" value="50" class="input js-input input_type_opacity" id="{{prefix}}_pFillOpacity" />
+										<div class="incremental-input_button incremental-input_button_plus js-plus"></div>
+										<div class="incremental-input_button incremental-input_button_minus js-minus"></div>
+									</div>
+								</div>
+								<div class="column col1of2"></div>
+							</div>
+							<div class="color-picker">
+								<div class="color-picker__row">
+								{{#color_set1}}
+										<label style="background-color: {{.}}" class="color"> <input type="radio" name="{{prefix}}polygon-fillColor" value="{{.}}" class="color__radio js-color__radio" /> </label>
+								{{/color_set1}}
+								</div>
+								<div class="color-picker__row">
+								{{#color_set2}}
+										<label style="background-color: {{.}}" class="color"> <input type="radio" name="{{prefix}}polygon-fillColor" value="{{.}}" class="color__radio js-color__radio" /> </label>
+								{{/color_set2}}
+								</div>
+							</div>
+							<input type="text" value="#478ac3" style="background-color: #478ac3;" class="input input_type_color is-inverted js-color-input__{{prefix}}polygon-fillColor" id="{{prefix}}_pFillColor"/>
+						</div>
+						<div class="subtab-content js-subtab-content js-subtab-content__delete">
+							<h3 class="title">{{delete_message}}</h3>
+							<button class="button button_color_dangerous delete_confirm">{{delete_confirm}}</button>
+						</div>
+						<div class="subtabs">
+							<label class="subtab is-active">
+								<input type="radio" name="{{prefix}}polygon-expanded" value="0" class="subtab__radio js-subtab__radio" /><i class="icon icon__search"></i>{{text}}</label>
+							<label class="subtab">
+								<input type="radio" name="{{prefix}}polygon-expanded" value="1" class="subtab__radio js-subtab__radio" /><i class="color-probe js-color-probe__{{prefix}}polygon-strokeColor"></i>{{stroke}}</label>
+							<label class="subtab">
+								<input type="radio" name="{{prefix}}polygon-expanded" value="2" class="subtab__radio js-subtab__radio" /><i class="color-probe js-color-probe__{{prefix}}polygon-fillColor"></i>{{fill}}</label>
+							<label class="subtab">
+								<input type="radio" name="{{prefix}}polygon-expanded" value="3" class="subtab__radio js-subtab__radio" /><i class="icon icon__delete"></i>
+							</label>
+						<!--	<label class="subtab">
+								<input type="radio" name="{{prefix}}polygon-expanded" value="close-tab" class="subtab__radio js-subtab__radio" /><i class="icon icon__ok"></i>
+							</label> -->
+						</div>
+					</div>
+					<div class="mx_tab-content tab-content_subtabs_true js-tab-content js-tab-content__list" style="padding:15px 15px 0 15px">
+						<div class="subtab-content js-subtab-content js-subtab-content__features zero-padding">
+							<div class="features-list sortable">
+								{{#object_list}}
+									 <div class="features-list__item">{{title}}
+										<div class="features-list__item-delete js-features-list__item-delete"></div>
+									</div>
+								{{/object_list}}
+							</div>
+						</div>
+						<!--
+						<div class="subtab-content js-subtab-content js-subtab-content__layers">
+							<h3 class="title">Add data overlays to your map</h3>
+							<p>Create and upload data from <a href="#">TileMill</a> to add layers to your project</p>
+							<button class="button">+ Add layers</button>
+						</div> -->
+						 <div class="subtabs zero-padding">
+						<!--<label class="subtab is-active">
+								<input type="radio" name="list" value="0" class="subtab__radio js-subtab__radio" />{{objects}}</label>
+							<label class="subtab">
+								<input type="radio" name="list" value="1" class="subtab__radio js-subtab__radio" />Layers</label> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</script>
+
+
+
+
+
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=drawing,weather&sensor=false"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+		<script src="js/mustache.js"></script>
+		<script src="js/jquery.sortable.min.js"></script>
+
+		<!--add redactor function-->
+		<link rel="stylesheet" href="js/redactor/redactor.css" />
+		<script src="js/redactor/redactor.min.js"></script>
+
+		<!--main function-->
+		<script src="js/script.js"></script>
+
+		<!--code for custom scroll (not emplemented yet)-->
+		<script src="js/iscroll-lite.js"></script>
+
+
+		<!--code for sliders-->
+		<link rel="stylesheet" href="css/ion.rangeSlider.css" />
+		<link rel="stylesheet" href="css/ion.rangeSlider.skinNice.css" />
+		<script src="js/ion.rangeSlider.min.js"></script>
+		<script type="text/javascript">
+			$(".input_type_opacity").ionRangeSlider();
+		</script>
+
+
+
+		<!--custom code for menu-->
+		<script src="js/demo/bigSlide.min.js"></script>
+		<script src="js/demo/style_menu.js"></script>
+
+
+
+	</body>
+</html>
